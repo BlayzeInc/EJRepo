@@ -18,7 +18,7 @@ namespace Interview
             Assert.IsTrue(objects.Contains(testObj));
         }
         [TestMethod]
-        [ExpectedException(typeof(ArgumentException), "No object found matching this Id")]
+        [ExpectedException(typeof(ArgumentException), "Duplicate object found matching this id")]
         public void IRepository_Save_Cannot_Add_Duplicates()
         {
             var repo = new Repository<Storable>();
