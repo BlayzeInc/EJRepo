@@ -8,7 +8,6 @@ namespace Interview
     [TestClass]
     public class Tests
     {
-
         [TestMethod]
         public void IRepository_After_Save_Contains_Object_In_All()
         {
@@ -17,6 +16,18 @@ namespace Interview
             repo.Save(testObj);
             var objects = repo.All();
             Assert.IsTrue(objects.Contains(testObj));
+        }
+        [TestMethod]
+        
+        public void IRepository_Save_Cannot_Add_Duplicates()
+        {
+            var repo = new Repository<Storable>();
+            var testObj = new Storable(1);
+            repo.Save(testObj);
+            var testObj2 = new Storable(1);
+            repo.Save(testObj2);
+            var objects = repo.All();
+            Assert.IsTrue(objects.Count() == 1);
         }
 
         [TestMethod]
@@ -43,7 +54,18 @@ namespace Interview
             Assert.AreEqual(obj, testObj);
         }
 
-
+        [TestMethod]
+        [ExpectedException(typeof(NullReferenceException))]
+        public void IRepository_FindById_Returns_Exception_When_Passed_Id_Not_In_List()
+        {
+            var repo = new Repository<Storable>();
+            var testObj = new Storable(Guid.NewGuid());
+            repo.Save(testObj);
+            var testObj2 = new Storable(Guid.NewGuid());
+            repo.Save(testObj2);
+            var obj = repo.FindById(1);
+            Assert.AreEqual(obj, testObj);
+        }
 
         [TestMethod]
         public void IRepository_After_Delete_All_Does_Not_Contain_Object()
