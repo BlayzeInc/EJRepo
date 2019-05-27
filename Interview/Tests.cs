@@ -18,7 +18,7 @@ namespace Interview
             Assert.IsTrue(objects.Contains(testObj));
         }
         [TestMethod]
-        
+        [ExpectedException(typeof(ArgumentException), "No object found matching this Id")]
         public void IRepository_Save_Cannot_Add_Duplicates()
         {
             var repo = new Repository<Storable>();
@@ -55,7 +55,7 @@ namespace Interview
         }
 
         [TestMethod]
-        [ExpectedException(typeof(NullReferenceException))]
+        [ExpectedException(typeof(ArgumentException), "No object found matching this Id")]
         public void IRepository_FindById_Returns_Exception_When_Passed_Id_Not_In_List()
         {
             var repo = new Repository<Storable>();
@@ -64,7 +64,7 @@ namespace Interview
             var testObj2 = new Storable(Guid.NewGuid());
             repo.Save(testObj2);
             var obj = repo.FindById(1);
-            Assert.AreEqual(obj, testObj);
+            Assert.IsNull(obj);
         }
 
         [TestMethod]

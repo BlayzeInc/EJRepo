@@ -27,7 +27,17 @@ namespace Interview
 
         public T FindById(IComparable id)
         {
-            return objects.Find(MatchId(id));
+            T obj = objects.Find(MatchId(id));
+            if(obj != null)
+            {
+                return obj;
+            }
+            else
+            {
+                ArgumentException argEx = new ArgumentException("No object found matching this Id");
+                throw argEx;
+            }
+            
         }
 
         private static Predicate<T> MatchId(IComparable id)
@@ -37,7 +47,17 @@ namespace Interview
 
         public void Save(T item)
         {
-            objects.Add(item);
+            T obj = objects.Find(MatchId(item.Id));
+            if (obj == null)
+            {
+                objects.Add(item);
+            }
+            else
+            {
+                ArgumentException argEx = new ArgumentException("Duplicate object found matching this id");
+                throw argEx;
+            }
+            
         }
 
         public void Delete(IComparable id)
