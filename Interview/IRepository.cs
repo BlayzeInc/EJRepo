@@ -3,36 +3,46 @@ using System.Collections.Generic;
 
 namespace Interview
 {
-    // Please create an in memory implementation of IRepository<T> 
-
     public interface IRepository<T> where T : IStoreable
     {
         IEnumerable<T> All();
-        bool Delete(IComparable id);
-        bool Save(T item);
+        void Delete(IComparable id);
+        void Save(T item);
         T FindById(IComparable id);
     }
 
     public class Repository<T> : IRepository<T> where T : IStoreable
     {
+        private List<T> objects;
+
+        public Repository()
+        {
+            objects = new List<T>(); 
+        }
+
         public IEnumerable<T> All()
         {
-            throw new NotImplementedException();
+            return objects;
         }
 
         public T FindById(IComparable id)
         {
-            throw new NotImplementedException();
+            return objects.Find(MatchId(id));
         }
 
-        public bool Save(T item)
+        private static Predicate<T> MatchId(IComparable id)
         {
-            throw new NotImplementedException();
+            return m => m.Id.Equals(id);
         }
 
-        public bool Delete(IComparable id)
+        public void Save(T item)
         {
-            throw new NotImplementedException();
+            objects.Add(item);
+        }
+
+        public void Delete(IComparable id)
+        {
+            objects.RemoveAll(MatchId(id));
         }
     }
 }

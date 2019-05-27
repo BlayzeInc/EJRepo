@@ -11,11 +11,9 @@ namespace Interview
     {
         public IComparable Id { get; set; }
 
-        public Storable(IComparable Id)
+        public Storable(IComparable id)
         {
-
+            Id = id;
         }
-
-
     }
 }
