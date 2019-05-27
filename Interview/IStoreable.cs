@@ -6,5 +6,16 @@ namespace Interview
     {
         IComparable Id { get; set; }
     }
-    
+
+    public class Storable : IStoreable
+    {
+        public IComparable Id { get; set; }
+
+        public Storable(IComparable Id)
+        {
+
+        }
+
+
+    }
 }

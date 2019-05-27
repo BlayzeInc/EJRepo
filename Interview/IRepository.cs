@@ -8,8 +8,31 @@ namespace Interview
     public interface IRepository<T> where T : IStoreable
     {
         IEnumerable<T> All();
-        void Delete(IComparable id);
-        void Save(T item);
+        bool Delete(IComparable id);
+        bool Save(T item);
         T FindById(IComparable id);
+    }
+
+    public class Repository<T> : IRepository<T> where T : IStoreable
+    {
+        public IEnumerable<T> All()
+        {
+            throw new NotImplementedException();
+        }
+
+        public T FindById(IComparable id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public bool Save(T item)
+        {
+            throw new NotImplementedException();
+        }
+
+        public bool Delete(IComparable id)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
